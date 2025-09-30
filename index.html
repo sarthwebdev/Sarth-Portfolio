@@ -1,118 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarth's Dynamic Portfolio</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-    body { background:#0f172a; color:#fff; line-height:1.6; transition: background 0.3s, color 0.3s; }
-    header { background:#1e293b; padding:20px; text-align:center; transition: background 0.3s; }
-    header h1 { font-size:2.5rem; color:#fbbf24; }
-    header p { font-size:1.2rem; color:#94a3b8; }
-    nav { background:#0f172a; text-align:center; padding:10px; }
-    nav a { color:#fbbf24; text-decoration:none; margin:0 15px; font-weight:500; }
-    nav a:hover { text-decoration:underline; }
-    section { max-width:900px; margin:40px auto; padding:20px; }
-    h2 { color:#fbbf24; margin-bottom:15px; font-size:1.8rem; }
-    .card { background:#1e293b; padding:20px; border-radius:10px; margin-bottom:20px; box-shadow:0 4px 10px rgba(0,0,0,0.4); transition: background 0.3s; }
-    .skills span { display:inline-block; background:#fbbf24; color:#0f172a; padding:6px 12px; border-radius:20px; margin:5px; font-size:0.9rem; font-weight:600; }
-    footer { text-align:center; background:#1e293b; padding:15px; margin-top:40px; color:#94a3b8; transition: background 0.3s; }
-    .theme-btn { cursor:pointer; background:#fbbf24; color:#0f172a; padding:8px 15px; border:none; border-radius:5px; font-weight:600; float:right; margin-top:-40px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarth's Dynamic Portfolio</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; transition: all 0.3s; }
+  body { background:#0f172a; color:#fff; line-height:1.6; }
+  header { background:#1e293b; padding:25px; text-align:center; position:relative; }
+  header h1 { font-size:2.8rem; color:#fbbf24; }
+  header p { font-size:1.2rem; color:#94a3b8; margin-top:5px; }
+  .theme-btn { cursor:pointer; background:#fbbf24; color:#0f172a; padding:8px 15px; border:none; border-radius:5px; font-weight:600; position:absolute; top:20px; right:20px; }
+  nav { background:#0f172a; text-align:center; padding:12px 0; position:sticky; top:0; z-index:100; }
+  nav a { color:#fbbf24; text-decoration:none; margin:0 18px; font-weight:500; font-size:1.05rem; }
+  nav a:hover { text-decoration:underline; }
+  section { max-width:900px; margin:50px auto; padding:20px; }
+  h2 { color:#fbbf24; margin-bottom:20px; font-size:2rem; text-align:center; }
+  .card { background:#1e293b; padding:20px; border-radius:12px; margin-bottom:20px; box-shadow:0 6px 15px rgba(0,0,0,0.5); transform:translateY(20px); opacity:0; transition: all 0.6s ease; }
+  .card.show { transform:translateY(0); opacity:1; }
+  .skills span { display:inline-block; background:#fbbf24; color:#0f172a; padding:8px 16px; border-radius:25px; margin:5px; font-size:0.95rem; font-weight:600; transition: transform 0.3s; }
+  .skills span:hover { transform:scale(1.1); }
+  .project-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 8px 20px rgba(0,0,0,0.6); }
+  footer { text-align:center; background:#1e293b; padding:15px; margin-top:40px; color:#94a3b8; }
+  .cta-btn { display:inline-block; padding:10px 18px; background:#fbbf24; color:#0f172a; font-weight:600; border-radius:8px; margin-top:15px; text-decoration:none; transition: transform 0.3s; }
+  .cta-btn:hover { transform:scale(1.05); }
+  /* Light Theme */
+  body.light { background:#f1f5f9; color:#0f172a; }
+  body.light header { background:#e2e8f0; }
+  body.light nav { background:#f1f5f9; }
+  body.light .card { background:#e2e8f0; color:#0f172a; }
+  body.light .skills span { background:#0f172a; color:#fbbf24; }
+  body.light footer { background:#e2e8f0; color:#0f172a; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Sarth</h1>
-    <p>Student | Web Developer | Canva Designer</p>
-    <button class="theme-btn" onclick="toggleTheme()">Toggle Theme</button>
-  </header>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<header>
+  <h1>Sarth</h1>
+  <p>Student | Web Developer | Visual Designer</p> 
+  <button class="theme-btn" onclick="toggleTheme()">Toggle Theme</button>
+</header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="card" id="about-card"></div>
-  </section>
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="card skills" id="skills-card"></div>
-  </section>
+<section id="about">
+  <h2>About Me</h2>
+  <div class="card" id="about-card"></div>
+</section>
 
-  <section id="projects">
-    <h2>Sample Projects</h2>
-    <div id="projects-container"></div>
-  </section>
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="card skills" id="skills-card"></div>
+</section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card" id="contact-card"></div>
-  </section>
+<section id="projects">
+  <h2>Sample Projects</h2>
+  <div id="projects-container"></div>
+</section>
 
-  <footer>
-    <p>© 2025 Sarth. All rights reserved.</p>
-  </footer>
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="card" id="contact-card"></div>
+  <a href="mailto:sarthwebdev@gmail.com" class="cta-btn">Hire Me / Contact</a>
+</section>
 
-  <script>
-    // DATA
-    const aboutMe = "Hi! I'm Sarth, a 16-year-old student passionate about web development and design. I love building websites with HTML, CSS, JS, PHP, and SQL. On the creative side, I design logos, posters, and thumbnails using Canva. I'm eager to collaborate, learn, and grow while delivering high-quality projects for clients.";
+<footer>
+  <p>© 2025 Sarth. All rights reserved.</p>
+</footer>
 
-    const skills = ["HTML", "CSS", "JavaScript", "Bootstrap", "PHP", "SQL", "Canva", "UI Design"];
+<script>
+  // DATA
+  const aboutMe = "Hi! I'm Sarth, a 16-year-old student passionate about web development and design. I love building websites with HTML, CSS and JS. On the creative side, I create digital designs including social media posts, logos, and YouTube thumbnails. I'm eager to collaborate, learn, and grow while delivering high-quality projects for clients.";
 
-    const projects = [
-      { title: "Portfolio Website", description: "The site you're looking at right now 🎉" },
-      { title: "Landing Page", description: "Modern responsive design for a product." },
-      { title: "Canva Designs", description: "Social media posts, YouTube thumbnails, and logo designs." }
-    ];
+  const skills = ["HTML", "CSS", "JavaScript", "Bootstrap", "UI Design", "Visual Design"];
 
-    const contactInfo = {
-      email: "sarthwebdev@gmail.com",
-      discord: "Sarth#1234",
-      github: "https://github.com/"
-    };
+  const projects = [
+    { title: "Portfolio Website", description: "The site you're looking at right now 🎉" },
+    { title: "Landing Page", description: "Modern responsive design for a product." },
+    { title: "Visual Designs", description: "Social media posts, YouTube thumbnails, and logos." }
+  ];
 
-    // DYNAMIC CONTENT
-    document.getElementById("about-card").innerHTML = `<p>${aboutMe}</p>`;
+  const contactInfo = {
+    email: "sarthwebdev@gmail.com",
+    discord: "Sarth#1234",
+    github: "https://github.com/"
+  };
 
-    const skillsContainer = document.getElementById("skills-card");
-    skills.forEach(skill => {
-      const span = document.createElement("span");
-      span.textContent = skill;
-      skillsContainer.appendChild(span);
-    });
+  // DYNAMIC CONTENT
+  document.getElementById("about-card").innerHTML = `<p>${aboutMe}</p>`;
 
-    const projectsContainer = document.getElementById("projects-container");
-    projects.forEach(project => {
-      const card = document.createElement("div");
-      card.classList.add("card");
-      card.innerHTML = `<p><strong>${project.title}:</strong> ${project.description}</p>`;
-      projectsContainer.appendChild(card);
-    });
+  const skillsContainer = document.getElementById("skills-card");
+  skills.forEach(skill => {
+    const span = document.createElement("span");
+    span.textContent = skill;
+    skillsContainer.appendChild(span);
+  });
 
-    const contactCard = document.getElementById("contact-card");
-    contactCard.innerHTML = `
-      <p>📧 Email: <a href="mailto:${contactInfo.email}" style="color:#fbbf24;">${contactInfo.email}</a></p>
-      <p>💬 Discord: <strong>${contactInfo.discord}</strong></p>
-      <p>🌐 GitHub: <a href="${contactInfo.github}" target="_blank" style="color:#fbbf24;">Your GitHub Link</a></p>
-    `;
+  const projectsContainer = document.getElementById("projects-container");
+  projects.forEach(project => {
+    const card = document.createElement("div");
+    card.classList.add("card", "project-card");
+    card.innerHTML = `<p><strong>${project.title}:</strong> ${project.description}</p>`;
+    projectsContainer.appendChild(card);
+  });
 
-    // THEME TOGGLE
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-      if(document.body.style.background === "rgb(15, 23, 42)"){
-        document.body.style.background = "#f1f5f9";
-        document.body.style.color = "#0f172a";
-      } else {
-        document.body.style.background = "#0f172a";
-        document.body.style.color = "#fff";
+  const contactCard = document.getElementById("contact-card");
+  contactCard.innerHTML = `
+    <p>📧 Email: <a href="mailto:${contactInfo.email}" style="color:#fbbf24;">${contactInfo.email}</a></p>
+    <p>💬 Discord: <strong>${contactInfo.discord}</strong></p>
+    <p>🌐 GitHub: <a href="${contactInfo.github}" target="_blank" style="color:#fbbf24;">Your GitHub Link</a></p>
+  `;
+
+  // THEME TOGGLE
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+  }
+
+  // ANIMATION ON SCROLL
+  const cards = document.querySelectorAll('.card');
+  function showCards() {
+    const triggerBottom = window.innerHeight / 5 * 4;
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if(cardTop < triggerBottom){
+        card.classList.add('show');
       }
-    }
-  </script>
+    });
+  }
+  window.addEventListener('scroll', showCards);
+  window.addEventListener('load', showCards);
+</script>
+
 </body>
 </html>
+
